@@ -1,0 +1,25 @@
+{
+  "name": "story-gpt",
+  "version": "0.1.0",
+  "description": "Generate a story with an image from a prompt using OpenAI's GPT",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodingBullDev/story-gpt.git"
+  },
+  "keywords": [
+    "OpenAI",
+    "GPT",
+    "Story",
+    "StoryBot"
+  ],
+  "author": "Javier Bullrich <javier@bullrich.dev>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CodingBullDev/story-gpt/issues"
+  },
+  "homepage": "https://github.com/CodingBullDev/story-gpt#readme"
+}
