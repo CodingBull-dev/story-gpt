@@ -4,6 +4,10 @@ Typescript library used to generate the stories for [StoryBot](https://storybot.
 
 ## Installation
 
+[![NPM Release](https://github.com/CodingBull-dev/story-gpt/actions/workflows/npm-publish.yml/badge.svg?branch=main)](https://github.com/CodingBull-dev/story-gpt/actions/workflows/npm-publish.yml)
+
+![NPM Version](https://img.shields.io/npm/v/story-gpt)
+
 `npm install --save story-gpt`
 
 ## Usage
