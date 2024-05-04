@@ -8,6 +8,9 @@ on:
 env:
   CI: true
 
+permissions:
+  id-token: write
+
 jobs:
   publish:
     name: Build & Publish to NPM
