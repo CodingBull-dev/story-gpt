@@ -1,6 +1,6 @@
 {
   "name": "story-gpt",
-  "version": "0.1.0",
+  "version": "0.0.0-updated-via-gh-releases",
   "type": "module",
   "description": "Generate a story with an image from a prompt using OpenAI's GPT",
   "main": "dist/index.js",
