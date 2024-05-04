@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "lint": "eslint",
-    "fix": "eslint --fix"
+    "fix": "eslint --fix",
+    "docs": "typedoc --readme README.md src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "@eslint/js": "^9.2.0",
     "eslint": "^8.57.0",
     "globals": "^15.1.0",
+    "typedoc": "^0.25.13",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.8.0"
   },
