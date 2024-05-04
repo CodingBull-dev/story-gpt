@@ -5,6 +5,7 @@ import { ChatAssistant } from "./chat";
 
 type StoryParams = { prompt: string, story: string, temperature: number };
 
+/** Prompt used to generate the story */
 export const systemInfo = `You are Story Bot, a language model that helps users create stories, scripts and more. 
         Follow the user's instructions carefully and generate the content they requested.
         When writing a post, story or script, try to extend the text as much as possible without making it boring.

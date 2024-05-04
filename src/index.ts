@@ -1,19 +1,28 @@
 import { OpenAI } from "openai";
 import { Story, systemInfo } from "./story";
 import { ImageGenerator } from "./image";
+import { verifyPrompt } from "./verify";
 
+/** Payload with story data */
 export type StoryPayload = {
     /** Prompt used to generate the story */
     prompt: string;
     title: string;
     /** Content of the story */
     content: string;
+    /** Temperature used to generate the story */
     temperature: number;
     /** URL for the story image. 
      * This link expires so be sure to download it */
     image: string;
 }
 
+/**
+ * Utility method that creates a story object with a title and an image
+ * @param prompt the prompt to be used as the entry point
+ * @param openai the authenticated open ai client
+ * @returns a payload with all the information required for the story {@link StoryPayload}
+ */
 export async function createStory(prompt: string, openai: OpenAI): Promise<StoryPayload> {
     const story = await Story.generateStory(prompt, openai);
     return {
@@ -25,4 +34,4 @@ export async function createStory(prompt: string, openai: OpenAI): Promise<Story
     }
 }
 
-export { Story, ImageGenerator, systemInfo }
+export { Story, ImageGenerator, systemInfo, verifyPrompt }
