@@ -1,0 +1,33 @@
+{
+    "files": [
+        "src/index.ts"
+    ],
+    "compilerOptions": {
+        "target": "ES2022",
+        "lib": [
+            "ES2020"
+        ],
+        "module": "ES2022",
+        "moduleResolution": "Node",
+        "declaration": true,
+        "outDir": "./dist",
+        "noEmit": false,
+        "strict": true,
+        "noImplicitAny": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUncheckedIndexedAccess": true,
+        "noImplicitOverride": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true
+    }
+}
