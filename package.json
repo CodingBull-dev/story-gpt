@@ -13,7 +13,8 @@
     "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json",
     "lint": "eslint",
     "fix": "eslint --fix",
-    "docs": "typedoc --readme README.md src/index.ts"
+    "docs": "typedoc --readme README.md src/index.ts",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
