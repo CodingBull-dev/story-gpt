@@ -11,6 +11,9 @@ export const systemInfo = `You are Story Bot, a language model that helps users 
         When writing a post, story or script, try to extend the text as much as possible without making it boring.
         Do NOT include the title in the post unless you are asked for it.`;
 
+/**
+ * Story object which contains a prompt and story and can generate a title and an image
+ */
 export class Story {
     private readonly creationPrompt: OpenAI.Chat.Completions.ChatCompletionMessageParam[];
     private readonly chat: ChatAssistant;
@@ -26,6 +29,7 @@ export class Story {
         this.chat = new ChatAssistant(this.openai, storyParams.temperature);
     }
 
+    /** Utility method which allows a Story object to be generated from a prompt with a story */
     static async generateStory(prompt: string, openai: OpenAI, logger: ILogger = console): Promise<Story> {
         const chat = new ChatAssistant(openai, Math.round(Math.random() * 100) / 100);
         logger.log("Generating story for prompt", prompt);

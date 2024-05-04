@@ -4,14 +4,16 @@ import type { ILogger } from "./types";
 export type ImageSize = '256x256' | '512x512' | '1024x1024' | '1792x1024' | '1024x1792'
 export type Model = 'dall-e-2' | 'dall-e-3';
 
+/**
+ * Class used to generate images
+ */
 export class ImageGenerator {
     public constructor(private readonly openai: OpenAI, private readonly logger: ILogger) {
-
     }
 
-    public async generateImage(prompt: string, size: ImageSize = "512x512", model: Model = "dall-e-3") {
+    public async generateImage(prompt: string, size: ImageSize = "512x512", model: Model = "dall-e-3"): Promise<string> {
         const image = await this.generateImages(prompt, 1, size, model);
-        return image[0];
+        return image[0]!;
     }
 
     public async generateImages(prompt: string, numberOfImages: 1 | 2 | 3 | 4 | 5, size: ImageSize = "512x512", model: Model = "dall-e-3"): Promise<string[]> {
