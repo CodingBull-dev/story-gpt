@@ -6,7 +6,9 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "lint": "eslint",
+    "fix": "eslint --fix"
   },
   "repository": {
     "type": "git",
@@ -25,7 +27,11 @@
   },
   "homepage": "https://github.com/CodingBullDev/story-gpt#readme",
   "devDependencies": {
-    "typescript": "^5.4.5"
+    "@eslint/js": "^9.2.0",
+    "eslint": "^8.57.0",
+    "globals": "^15.1.0",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.8.0"
   },
   "dependencies": {
     "openai": "^4.40.2"
