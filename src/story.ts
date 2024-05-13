@@ -5,6 +5,8 @@ import { ChatAssistant } from "./chat";
 
 type StoryParams = { prompt: string, story: string, temperature: number };
 
+const DEFAULT_MODEL = "gpt-4o";
+
 /** Prompt used to generate the story */
 export const systemInfo = `You are Story Bot, a language model that helps users create stories, scripts and more. 
         Follow the user's instructions carefully and generate the content they requested.
@@ -21,17 +23,17 @@ export class Story {
     public readonly content: string;
     public readonly temperature: number;
 
-    constructor(private readonly openai: OpenAI, storyParams: StoryParams, private readonly logger: ILogger = console) {
+    constructor(private readonly openai: OpenAI, storyParams: StoryParams, chatModel: string = DEFAULT_MODEL, private readonly logger: ILogger = console) {
         this.prompt = storyParams.prompt;
         this.content = storyParams.story;
         this.temperature = storyParams.temperature;
         this.creationPrompt = [{ role: "system", content: systemInfo }, { role: "user", content: storyParams.prompt }, { role: "assistant", content: storyParams.story }];
-        this.chat = new ChatAssistant(this.openai, storyParams.temperature);
+        this.chat = new ChatAssistant(this.openai, storyParams.temperature, chatModel);
     }
 
     /** Utility method which allows a Story object to be generated from a prompt with a story */
-    static async generateStory(prompt: string, openai: OpenAI, logger: ILogger = console): Promise<Story> {
-        const chat = new ChatAssistant(openai, Math.round(Math.random() * 100) / 100);
+    static async generateStory(prompt: string, openai: OpenAI, chatModel: string = DEFAULT_MODEL, logger: ILogger = console): Promise<Story> {
+        const chat = new ChatAssistant(openai, Math.round(Math.random() * 100) / 100, chatModel);
         logger.log("Generating story for prompt", prompt);
         const story = await chat.chat({ role: "system", content: systemInfo }, { role: "user", content: prompt });
 
@@ -40,7 +42,7 @@ export class Story {
         }
 
         logger.log("Got the story!", `It is ${story.answer.content.split(" ").length} words long!`);
-        return new Story(openai, { prompt, story: story.answer.content, temperature: chat.temperature });
+        return new Story(openai, { prompt, story: story.answer.content, temperature: chat.temperature }, chatModel);
     }
 
     async generateTitle(): Promise<string> {
