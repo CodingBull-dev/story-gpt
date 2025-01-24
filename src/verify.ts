@@ -4,9 +4,10 @@ import { Moderation } from "openai/resources";
 type StoryResult = { validStory: true } | { validStory: false, reasonForRejection: string }
 
 /**
- * Utility method that verifies if a prompt qualifies as a story.
+ * Utility method that verifies if a prompt contains potentially harmful content
+ * and if it qualifies as a story.
  * Useful to be used as the filter before processing a story and receiving an answer like
- * "I'm sorry, but X is not a prompt for a story"
+ * "I'm sorry, but X is not a prompt for a story" or "User prompt contains the following flagged topics: violence"
  * @param prompt The prompt to analyze
  * @param openai The openai authenticated client
  * @param chatModel optional, the model to use. Defaults to gpt-4-turbo
