@@ -10,11 +10,11 @@ type StoryResult = { validStory: true } | { validStory: false, reasonForRejectio
  * "I'm sorry, but X is not a prompt for a story" or "User prompt contains the following flagged topics: violence"
  * @param prompt The prompt to analyze
  * @param openai The openai authenticated client
- * @param chatModel optional, the model to use. Defaults to gpt-4-turbo
+ * @param chatModel optional, the model to use. Defaults to gpt-4.1-mini
  * @returns a `{validStory:boolean,reasonForRejection?:string}` object. 
  * If validStory is false, the reasonForRejection will contain the information
  */
-export async function verifyPrompt(prompt: string, openai: OpenAI, chatModel: string = "gpt-4-turbo"): Promise<StoryResult> {
+export async function verifyPrompt(prompt: string, openai: OpenAI, chatModel: string = "gpt-4.1-mini"): Promise<StoryResult> {
     const moderator = await openai.moderations.create({
         model: "omni-moderation-latest",
         input: `A user submitted the following input to generate a story or blogpost: ${prompt}`
