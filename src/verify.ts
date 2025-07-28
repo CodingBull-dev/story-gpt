@@ -16,7 +16,7 @@ type StoryResult = { validStory: true } | { validStory: false, reasonForRejectio
  */
 export async function verifyPrompt(prompt: string, openai: OpenAI, chatModel: string = "gpt-4-turbo"): Promise<StoryResult> {
     const moderator = await openai.moderations.create({
-        model: "text-moderation-latest",
+        model: "omni-moderation",
         input: `A user submitted the following input to generate a story or blogpost: ${prompt}`
     });
 
