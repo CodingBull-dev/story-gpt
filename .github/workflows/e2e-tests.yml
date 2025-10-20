@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     name: End-to-End Tests
     timeout-minutes: 15
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       
@@ -48,5 +50,6 @@ jobs:
     runs-on: ubuntu-latest
     name: E2E Tests Complete
     needs: [e2e-test]
+    permissions: {}
     steps:
       - run: echo '### E2E tests passed! 🎉' >> $GITHUB_STEP_SUMMARY

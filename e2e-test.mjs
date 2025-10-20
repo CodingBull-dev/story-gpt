@@ -1,5 +1,6 @@
 import { OpenAI } from "openai";
-import { createStory, Story, ImageGenerator, verifyPrompt, ChatAssistant } from "./dist/index.js";
+import { createStory, Story, ImageGenerator, verifyPrompt } from "./dist/index.js";
+import { ChatAssistant } from "./dist/chat.js";
 
 /**
  * E2E Test for story-gpt
@@ -305,9 +306,6 @@ async function runAllTests() {
         process.exit(0);
     }
 }
-
-// Export ChatAssistant for use in tests
-export { ChatAssistant };
 
 // Run tests
 runAllTests().catch(error => {
