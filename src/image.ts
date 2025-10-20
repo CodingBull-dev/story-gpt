@@ -28,7 +28,7 @@ export class ImageGenerator {
 
         this.logger.log("Got image!", data);
 
-        if (data.length < numberOfImages) {
+        if (!data || data.length < numberOfImages) {
             throw new Error("Insufficient amount of images generated");
         }
 

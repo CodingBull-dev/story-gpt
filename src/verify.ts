@@ -14,9 +14,9 @@ type StoryResult = { validStory: true } | { validStory: false, reasonForRejectio
  * @returns a `{validStory:boolean,reasonForRejection?:string}` object. 
  * If validStory is false, the reasonForRejection will contain the information
  */
-export async function verifyPrompt(prompt: string, openai: OpenAI, chatModel: string = "gpt-4-turbo"): Promise<StoryResult> {
+export async function verifyPrompt(prompt: string, openai: OpenAI, chatModel: string = "gpt-5-mini"): Promise<StoryResult> {
     const moderator = await openai.moderations.create({
-        model: "omni-moderation-latest",
+        model: "omni-moderation",
         input: `A user submitted the following input to generate a story or blogpost: ${prompt}`
     });
 
@@ -65,11 +65,16 @@ export async function verifyPrompt(prompt: string, openai: OpenAI, chatModel: st
     });
 
     const responseMessage = response.choices[0]?.message;
-    if (!responseMessage?.tool_calls || !responseMessage.tool_calls[0]?.function.arguments) {
+    if (!responseMessage?.tool_calls || !responseMessage.tool_calls[0]) {
         throw new Error("Missing tool calls");
     }
 
-    const { isStory, kindOfPrompt } = JSON.parse(responseMessage.tool_calls[0].function.arguments) as { isStory: boolean, kindOfPrompt: string };
+    const toolCall = responseMessage.tool_calls[0];
+    if (toolCall.type !== 'function' || !toolCall.function.arguments) {
+        throw new Error("Invalid tool call type");
+    }
+
+    const { isStory, kindOfPrompt } = JSON.parse(toolCall.function.arguments) as { isStory: boolean, kindOfPrompt: string };
 
     return isStory ? { validStory: true } : { validStory: false, reasonForRejection: kindOfPrompt };
 }

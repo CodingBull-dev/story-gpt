@@ -11,7 +11,7 @@ type Conversation = {
  * Assistant class that allows to have conversations while keeping the history
  */
 export class ChatAssistant {
-    public constructor(private readonly openai: OpenAI, public readonly temperature: number, public readonly chatModel: string = "gpt-4-turbo") {
+    public constructor(private readonly openai: OpenAI, public readonly temperature: number, public readonly chatModel: string = "gpt-5-mini") {
     }
 
     /**

@@ -5,7 +5,7 @@ import { ChatAssistant } from "./chat";
 
 type StoryParams = { prompt: string, story: string, temperature: number };
 
-const DEFAULT_MODEL = "gpt-4o";
+const DEFAULT_MODEL = "gpt-5-mini";
 
 /** Prompt used to generate the story */
 export const systemInfo = `You are Story Bot, a language model that helps users create stories, scripts and more. 
