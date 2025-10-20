@@ -1,7 +1,7 @@
 import { OpenAI } from "openai";
-import { ILogger } from "./types";
-import { ImageGenerator, ImageSize, Model } from "./image";
-import { ChatAssistant } from "./chat";
+import { ILogger } from "./types.js";
+import { ImageGenerator, ImageSize, Model } from "./image.js";
+import { ChatAssistant } from "./chat.js";
 
 type StoryParams = { prompt: string, story: string, temperature: number };
 

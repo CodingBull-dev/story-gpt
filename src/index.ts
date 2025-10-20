@@ -1,7 +1,7 @@
 import { OpenAI } from "openai";
-import { Story, systemInfo } from "./story";
-import { ImageGenerator } from "./image";
-import { verifyPrompt } from "./verify";
+import { Story, systemInfo } from "./story.js";
+import { ImageGenerator } from "./image.js";
+import { verifyPrompt } from "./verify.js";
 
 /** Payload with story data */
 export type StoryPayload = {

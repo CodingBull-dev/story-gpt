@@ -1,5 +1,5 @@
 import type { OpenAI } from "openai";
-import type { ILogger } from "./types";
+import type { ILogger } from "./types.js";
 
 export type ImageSize = '256x256' | '512x512' | '1024x1024' | '1792x1024' | '1024x1792'
 export type Model = 'dall-e-2' | 'dall-e-3';

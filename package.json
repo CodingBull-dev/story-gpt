@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json",
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json && echo '{\"type\": \"module\"}' > dist/package.json && echo '{\"type\": \"commonjs\"}' > dist/cjs/package.json",
     "lint": "eslint",
     "fix": "eslint --fix",
     "docs": "typedoc --readme README.md src/index.ts",
