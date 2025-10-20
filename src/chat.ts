@@ -11,6 +11,12 @@ type Conversation = {
  * Assistant class that allows to have conversations while keeping the history
  */
 export class ChatAssistant {
+    /**
+     * Creates a new ChatAssistant instance
+     * @param openai The authenticated OpenAI client
+     * @param temperature The temperature for response generation (0-2). Note: gpt-5-mini only supports temperature=1 (default)
+     * @param chatModel Optional, the model to use. Defaults to gpt-5-mini
+     */
     public constructor(private readonly openai: OpenAI, public readonly temperature: number, public readonly chatModel: string = "gpt-5-mini") {
     }
 
