@@ -44,10 +44,4 @@ node e2e-test.mjs
 The E2E tests cover:
 - Story creation with `createStory()`
 - Story generation with `Story.generateStory()`
-- Title generation with `Story.generateTitle()`
-- Image generation with `Story.generateImage()`
-- Single image generation with `ImageGenerator.generateImage()`
-- Multiple image generation with `ImageGenerator.generateImages()`
 - Prompt validation with `verifyPrompt()`
-- Chat conversations with `ChatAssistant.chat()`
-- Conversation continuation
