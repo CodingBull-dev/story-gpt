@@ -40,6 +40,6 @@
     "typescript-eslint": "^7.9.0"
   },
   "dependencies": {
-    "openai": "^4.80.0"
+    "openai": "^6.6.0"
   }
 }

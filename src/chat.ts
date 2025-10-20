@@ -11,7 +11,13 @@ type Conversation = {
  * Assistant class that allows to have conversations while keeping the history
  */
 export class ChatAssistant {
-    public constructor(private readonly openai: OpenAI, public readonly temperature: number, public readonly chatModel: string = "gpt-4-turbo") {
+    /**
+     * Creates a new ChatAssistant instance
+     * @param openai The authenticated OpenAI client
+     * @param temperature The temperature for response generation (0-2). Note: gpt-5-mini only supports temperature=1 (default)
+     * @param chatModel Optional, the model to use. Defaults to gpt-5-mini
+     */
+    public constructor(private readonly openai: OpenAI, public readonly temperature: number, public readonly chatModel: string = "gpt-5-mini") {
     }
 
     /**
@@ -28,11 +34,18 @@ export class ChatAssistant {
      * console.log("Argentina size is:", followUp.answer.content);
      */
     public async chat(...messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[]): Promise<Conversation> {
-        const response = await this.openai.chat.completions.create({
+        // gpt-5-mini only supports temperature = 1 (default), so we omit it for that model
+        const completionParams: OpenAI.Chat.Completions.ChatCompletionCreateParamsNonStreaming = {
             model: this.chatModel,
-            temperature: this.temperature,
             messages: messages,
-        });
+        };
+
+        // Only include temperature if the model is not gpt-5-mini
+        if (this.chatModel !== "gpt-5-mini") {
+            completionParams.temperature = this.temperature;
+        }
+
+        const response = await this.openai.chat.completions.create(completionParams);
 
         if (response.choices.length < 1) {
             throw new Error("No results found on prompt request");

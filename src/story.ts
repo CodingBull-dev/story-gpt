@@ -5,7 +5,7 @@ import { ChatAssistant } from "./chat";
 
 type StoryParams = { prompt: string, story: string, temperature: number };
 
-const DEFAULT_MODEL = "gpt-4o";
+const DEFAULT_MODEL = "gpt-5-mini";
 
 /** Prompt used to generate the story */
 export const systemInfo = `You are Story Bot, a language model that helps users create stories, scripts and more. 
@@ -23,6 +23,13 @@ export class Story {
     public readonly content: string;
     public readonly temperature: number;
 
+    /**
+     * Creates a new Story instance
+     * @param openai The authenticated OpenAI client
+     * @param storyParams Story parameters including prompt, story content, and temperature
+     * @param chatModel Optional, the model to use. Defaults to gpt-5-mini. Note: gpt-5-mini only supports temperature=1 (default)
+     * @param logger Optional logger instance for debugging. Defaults to console
+     */
     constructor(private readonly openai: OpenAI, storyParams: StoryParams, chatModel: string = DEFAULT_MODEL, private readonly logger: ILogger = console) {
         this.prompt = storyParams.prompt;
         this.content = storyParams.story;
@@ -31,7 +38,14 @@ export class Story {
         this.chat = new ChatAssistant(this.openai, storyParams.temperature, chatModel);
     }
 
-    /** Utility method which allows a Story object to be generated from a prompt with a story */
+    /** 
+     * Utility method which allows a Story object to be generated from a prompt with a story 
+     * @param prompt The prompt to generate the story from
+     * @param openai The authenticated OpenAI client
+     * @param chatModel Optional, the model to use. Defaults to gpt-5-mini. Note: gpt-5-mini only supports temperature=1 (default)
+     * @param logger Optional logger instance for debugging. Defaults to console
+     * @returns A Promise that resolves to a Story instance
+     */
     static async generateStory(prompt: string, openai: OpenAI, chatModel: string = DEFAULT_MODEL, logger: ILogger = console): Promise<Story> {
         const chat = new ChatAssistant(openai, Math.round(Math.random() * 100) / 100, chatModel);
         logger.log("Generating story for prompt", prompt);
@@ -45,6 +59,10 @@ export class Story {
         return new Story(openai, { prompt, story: story.answer.content, temperature: chat.temperature }, chatModel);
     }
 
+    /**
+     * Generates a title for the story
+     * @returns A Promise that resolves to the generated title
+     */
     async generateTitle(): Promise<string> {
         const titleQuestion = await this.chat.chat(...this.creationPrompt, { role: "user", content: "What would you call the story (or post)? Respond only with the name, no other text is needed." });
         let title = titleQuestion.answer.content;
@@ -63,6 +81,12 @@ export class Story {
         return title;
     }
 
+    /**
+     * Generates an image for the story using DALL-E
+     * @param size Optional, the size of the image. Defaults to "1024x1024"
+     * @param model Optional, the DALL-E model to use. Defaults to "dall-e-3"
+     * @returns A Promise that resolves to the URL of the generated image
+     */
     async generateImage(size: ImageSize = "1024x1024", model: Model = "dall-e-3"): Promise<string> {
         this.logger.log("Generating image prompts");
         const imgPrompt = "Based on the previous story, write a prompt for an image generation service Dall-E. " +
