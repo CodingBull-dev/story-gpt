@@ -45,3 +45,4 @@ The E2E tests cover:
 - Story creation with `createStory()`
 - Story generation with `Story.generateStory()`
 - Prompt validation with `verifyPrompt()`
+- Image generation with `ImageGenerator.generateImage()`

@@ -1,5 +1,5 @@
 import { OpenAI } from "openai";
-import { createStory, Story, verifyPrompt } from "./dist/index.js";
+import { createStory, Story, ImageGenerator, verifyPrompt } from "./dist/cjs/index.js";
 
 /**
  * E2E Test for story-gpt
@@ -102,6 +102,30 @@ async function testVerifyPromptInvalid() {
     }
 }
 
+// Test 5: ImageGenerator.generateImage - Generate single image
+async function testImageGeneration() {
+    console.log("\n📝 Test 5: Testing ImageGenerator.generateImage()");
+    try {
+        const imageGen = new ImageGenerator(openai, console);
+        const imageUrl = await imageGen.generateImage(
+            "A simple illustration of a sunset over mountains",
+            "1024x1024",
+            "dall-e-3"
+        );
+        
+        if (!imageUrl || typeof imageUrl !== "string" || !imageUrl.startsWith("http")) {
+            throw new Error("Invalid image URL");
+        }
+        
+        console.log(`✅ ImageGenerator.generateImage passed`);
+        console.log(`   Image URL: ${imageUrl.substring(0, 50)}...`);
+        return true;
+    } catch (error) {
+        console.error(`❌ ImageGenerator.generateImage failed:`, error.message);
+        return false;
+    }
+}
+
 // Run all tests
 async function runAllTests() {
     const results = [];
@@ -115,6 +139,9 @@ async function runAllTests() {
     // Test 3-4: verifyPrompt
     results.push(await testVerifyPromptValid());
     results.push(await testVerifyPromptInvalid());
+    
+    // Test 5: ImageGenerator
+    results.push(await testImageGeneration());
     
     // Print summary
     console.log("\n" + "=".repeat(60));
