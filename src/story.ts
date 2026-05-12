@@ -82,14 +82,14 @@ export class Story {
     }
 
     /**
-     * Generates an image for the story using DALL-E
+     * Generates an image for the story using OpenAI's GPT image models
      * @param size Optional, the size of the image. Defaults to "1024x1024"
-     * @param model Optional, the DALL-E model to use. Defaults to "dall-e-3"
-     * @returns A Promise that resolves to the URL of the generated image
+     * @param model Optional, the GPT image model to use. Defaults to "gpt-image-1-mini"
+     * @returns A Promise that resolves to the data URL of the generated image
      */
-    async generateImage(size: ImageSize = "1024x1024", model: Model = "dall-e-3"): Promise<string> {
+    async generateImage(size: ImageSize = "1024x1024", model: Model = "gpt-image-1-mini"): Promise<string> {
         this.logger.log("Generating image prompts");
-        const imgPrompt = "Based on the previous story, write a prompt for an image generation service Dall-E. " +
+        const imgPrompt = "Based on the previous story, write a prompt for an OpenAI image generation model. " +
             "Keep the prompt detailed and tell the system to use a particular art style referring to a particular artist/painter. " +
             "Make the prompt be less than 400 characters. " +
             "Respond only with the prompt. No other text is needed.";

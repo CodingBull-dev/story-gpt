@@ -12,8 +12,8 @@ export type StoryPayload = {
     content: string;
     /** Temperature used to generate the story */
     temperature: number;
-    /** URL for the story image. 
-     * This link expires so be sure to download it */
+    /** Image data URL for the story image. 
+     * For GPT image models, this is a base64 data URL. */
     image: string;
 }
 
