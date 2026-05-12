@@ -38,27 +38,17 @@ export class ImageGenerator {
      * @returns A Promise that resolves to an array of data URLs for the generated images
      */
     public async generateImages(prompt: string, numberOfImages: 1 | 2 | 3 | 4 | 5, size: ImageSize = "1024x1024", model: Model = "gpt-image-1-mini"): Promise<string[]> {
+        const outputFormat = "png" as const;
         const response = await this.openai.images.generate({
             model,
             prompt,
             n: numberOfImages,
             size,
+            output_format: outputFormat,
         });
 
         const { data } = response;
-        const outputFormat = response.output_format ?? "png";
-        const mimeType = (() => {
-            switch (outputFormat) {
-                case "png":
-                    return "image/png";
-                case "jpeg":
-                    return "image/jpeg";
-                case "webp":
-                    return "image/webp";
-                default:
-                    throw new Error(`Unsupported image output format: ${outputFormat}`);
-            }
-        })();
+        const mimeType = "image/png";
 
         this.logger.log("Got image!", data);
 
