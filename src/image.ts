@@ -43,11 +43,11 @@ export class ImageGenerator {
             prompt,
             n: numberOfImages,
             size,
-            output_format: "png",
         });
 
         const { data } = response;
-        const mimeType = "image/png";
+        const outputFormat = response.output_format ?? "png";
+        const mimeType = outputFormat === "jpeg" ? "image/jpeg" : `image/${outputFormat}`;
 
         this.logger.log("Got image!", data);
 
