@@ -22,7 +22,7 @@ export class ImageGenerator {
      * @param prompt The text prompt describing the image to generate
      * @param size Optional, the size of the image. Defaults to "1024x1024"
      * @param model Optional, the GPT image model to use. Defaults to "gpt-image-1-mini"
-     * @returns A Promise that resolves to the data URL of the generated image
+     * @returns A Promise that resolves to the PNG data URL of the generated image
      */
     public async generateImage(prompt: string, size: ImageSize = "1024x1024", model: Model = "gpt-image-1-mini"): Promise<string> {
         const image = await this.generateImages(prompt, 1, size, model);
@@ -35,7 +35,7 @@ export class ImageGenerator {
      * @param numberOfImages The number of images to generate (1-5)
      * @param size Optional, the size of the images. Defaults to "1024x1024"
      * @param model Optional, the GPT image model to use. Defaults to "gpt-image-1-mini"
-     * @returns A Promise that resolves to an array of data URLs for the generated images
+     * @returns A Promise that resolves to an array of PNG data URLs for the generated images
      */
     public async generateImages(prompt: string, numberOfImages: 1 | 2 | 3 | 4 | 5, size: ImageSize = "1024x1024", model: Model = "gpt-image-1-mini"): Promise<string[]> {
         const outputFormat = "png" as const;

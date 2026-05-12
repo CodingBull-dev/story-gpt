@@ -123,7 +123,7 @@ async function testImageGeneration() {
         const isDataUrl = imageUrl.startsWith("data:image/");
 
         if (!imageUrl || typeof imageUrl !== "string" || (!isHttpUrl && !isDataUrl)) {
-            throw new Error("Invalid image URL");
+            throw new Error("Invalid image URL or data URL");
         }
         
         console.log(`✅ ImageGenerator.generateImage passed`);

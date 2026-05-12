@@ -92,7 +92,7 @@ Generates an image for the story using OpenAI's GPT image models.
 - `size` (ImageSize, optional): Image size. Defaults to `"1024x1024"`. Options: `'1024x1024' | '1536x1024' | '1024x1536'`
 - `model` (Model, optional): GPT image model. Defaults to `"gpt-image-1-mini"`
 
-**Returns:** `Promise<string>` - Data URL to the generated image
+**Returns:** `Promise<string>` - PNG data URL to the generated image
 
 ### `verifyPrompt(prompt, openai, chatModel?)`
 
@@ -140,7 +140,7 @@ Generates a single image from a text prompt.
 - `size` (ImageSize, optional): Image size. Defaults to `"1024x1024"`
 - `model` (Model, optional): GPT image model. Defaults to `"gpt-image-1-mini"`
 
-**Returns:** `Promise<string>` - Data URL to the generated image
+**Returns:** `Promise<string>` - PNG data URL to the generated image
 
 **Example:**
 ```typescript
@@ -162,7 +162,7 @@ Generates multiple images from a text prompt.
 - `size` (ImageSize, optional): Image size. Defaults to `"1024x1024"`
 - `model` (Model, optional): GPT image model. Defaults to `"gpt-image-1-mini"`
 
-**Returns:** `Promise<string[]>` - Array of data URLs to the generated images
+**Returns:** `Promise<string[]>` - Array of PNG data URLs to the generated images
 
 ### `ChatAssistant` Class
 
