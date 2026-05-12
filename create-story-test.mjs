@@ -12,7 +12,7 @@ if (!apiKey) {
     process.exit(1);
 }
 
-const openai = new OpenAI({ apiKey });
+const openai = new OpenAI({ apiKey, maxRetries: 3 });
 
 console.log("🚀 Starting create story test\n");
 

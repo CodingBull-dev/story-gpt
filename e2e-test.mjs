@@ -13,7 +13,13 @@ if (!OPENAI_API_KEY) {
     process.exit(1);
 }
 
-const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+const openai = new OpenAI({ apiKey: OPENAI_API_KEY, maxRetries: 3 });
+
+/** Pause execution for the given number of milliseconds */
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+/** Delay between tests to avoid hitting API rate limits */
+const RATE_LIMIT_DELAY_MS = 2000;
 
 console.log("🚀 Starting E2E tests for story-gpt\n");
 
@@ -132,13 +138,17 @@ async function runAllTests() {
     
     // Test 1: createStory
     results.push(await testCreateStory());
+    await sleep(RATE_LIMIT_DELAY_MS);
     
     // Test 2: Story.generateStory
     results.push(await testGenerateStory());
+    await sleep(RATE_LIMIT_DELAY_MS);
     
     // Test 3-4: verifyPrompt
     results.push(await testVerifyPromptValid());
+    await sleep(RATE_LIMIT_DELAY_MS);
     results.push(await testVerifyPromptInvalid());
+    await sleep(RATE_LIMIT_DELAY_MS);
     
     // Test 5: ImageGenerator
     results.push(await testImageGeneration());
