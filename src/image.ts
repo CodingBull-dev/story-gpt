@@ -47,8 +47,7 @@ export class ImageGenerator {
         });
 
         const { data } = response;
-        const outputFormat = response.output_format ?? "png";
-        const mimeType = outputFormat === "jpeg" ? "image/jpeg" : `image/${outputFormat}`;
+        const mimeType = "image/png";
 
         this.logger.log("Got image!", data);
 
