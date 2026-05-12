@@ -116,11 +116,14 @@ async function testImageGeneration() {
         const imageUrl = await imageGen.generateImage(
             "A simple illustration of a sunset over mountains",
             "1024x1024",
-            "dall-e-3"
+            "gpt-image-1-mini"
         );
-        
-        if (!imageUrl || typeof imageUrl !== "string" || !imageUrl.startsWith("http")) {
-            throw new Error("Invalid image URL");
+
+        const isHttpUrl = imageUrl.startsWith("http");
+        const isDataUrl = imageUrl.startsWith("data:image/");
+
+        if (!imageUrl || typeof imageUrl !== "string" || (!isHttpUrl && !isDataUrl)) {
+            throw new Error("Invalid image URL or data URL");
         }
         
         console.log(`✅ ImageGenerator.generateImage passed`);

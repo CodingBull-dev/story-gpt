@@ -40,7 +40,7 @@ Main utility function that creates a complete story with title and image.
 - `title`: Generated story title
 - `content`: The story content
 - `temperature`: Temperature value used for generation
-- `image`: URL to the generated image (Note: this link expires, so download it)
+- `image`: Image data URL for the generated image (base64 for GPT image models)
 
 **Example:**
 ```typescript
@@ -86,13 +86,13 @@ Generates a title for the story.
 
 #### `story.generateImage(size?, model?)`
 
-Generates an image for the story using DALL-E.
+Generates an image for the story using OpenAI's GPT image models.
 
 **Parameters:**
-- `size` (ImageSize, optional): Image size. Defaults to `"1024x1024"`. Options: `'256x256' | '512x512' | '1024x1024' | '1792x1024' | '1024x1792'`
-- `model` (Model, optional): DALL-E model. Defaults to `"dall-e-3"`. Options: `'dall-e-2' | 'dall-e-3'`
+- `size` (ImageSize, optional): Image size. Defaults to `"1024x1024"`. Options: `'1024x1024' | '1536x1024' | '1024x1536'`
+- `model` (Model, optional): GPT image model. Defaults to `"gpt-image-1-mini"`
 
-**Returns:** `Promise<string>` - URL to the generated image
+**Returns:** `Promise<string>` - PNG data URL to the generated image
 
 ### `verifyPrompt(prompt, openai, chatModel?)`
 
@@ -123,7 +123,7 @@ if (result.validStory) {
 
 ### `ImageGenerator` Class
 
-Class for generating images using OpenAI's DALL-E.
+Class for generating images using OpenAI's GPT image models.
 
 #### Constructor: `new ImageGenerator(openai, logger)`
 
@@ -137,10 +137,10 @@ Generates a single image from a text prompt.
 
 **Parameters:**
 - `prompt` (string): The text prompt describing the image
-- `size` (ImageSize, optional): Image size. Defaults to `"512x512"`
-- `model` (Model, optional): DALL-E model. Defaults to `"dall-e-3"`
+- `size` (ImageSize, optional): Image size. Defaults to `"1024x1024"`
+- `model` (Model, optional): GPT image model. Defaults to `"gpt-image-1-mini"`
 
-**Returns:** `Promise<string>` - URL to the generated image
+**Returns:** `Promise<string>` - PNG data URL to the generated image
 
 **Example:**
 ```typescript
@@ -149,7 +149,7 @@ import { OpenAI } from "openai";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const imageGen = new ImageGenerator(openai, console);
-const imageUrl = await imageGen.generateImage("A sunset over mountains", "1024x1024", "dall-e-3");
+const imageUrl = await imageGen.generateImage("A sunset over mountains", "1024x1024", "gpt-image-1-mini");
 ```
 
 #### `imageGenerator.generateImages(prompt, numberOfImages, size?, model?)`
@@ -159,10 +159,10 @@ Generates multiple images from a text prompt.
 **Parameters:**
 - `prompt` (string): The text prompt describing the images
 - `numberOfImages` (number): Number of images to generate (1-5)
-- `size` (ImageSize, optional): Image size. Defaults to `"512x512"`
-- `model` (Model, optional): DALL-E model. Defaults to `"dall-e-3"`
+- `size` (ImageSize, optional): Image size. Defaults to `"1024x1024"`
+- `model` (Model, optional): GPT image model. Defaults to `"gpt-image-1-mini"`
 
-**Returns:** `Promise<string[]>` - Array of URLs to the generated images
+**Returns:** `Promise<string[]>` - Array of PNG data URLs to the generated images
 
 ### `ChatAssistant` Class
 
@@ -202,7 +202,7 @@ console.log("Argentina size is:", followUp.answer.content);
 ## Important Notes
 
 - **Temperature with gpt-5-mini**: The `gpt-5-mini` model only supports the default temperature value (1). When using this model, the library automatically omits the temperature parameter to avoid API errors.
-- **Image URLs**: Generated image URLs are temporary and will expire. Make sure to download the images if you need to persist them.
+- **Image data URLs**: GPT image models return base64 data URLs. If you need a persistent file, decode and save the image data.
 - **API Key**: You need a valid OpenAI API key to use this library. Set it as an environment variable or pass it directly to the OpenAI client.
 
 ## Development
