@@ -47,7 +47,18 @@ export class ImageGenerator {
 
         const { data } = response;
         const outputFormat = response.output_format ?? "png";
-        const mimeType = outputFormat === "jpeg" ? "image/jpeg" : `image/${outputFormat}`;
+        const mimeType = (() => {
+            switch (outputFormat) {
+                case "png":
+                    return "image/png";
+                case "jpeg":
+                    return "image/jpeg";
+                case "webp":
+                    return "image/webp";
+                default:
+                    throw new Error(`Unsupported image output format: ${outputFormat}`);
+            }
+        })();
 
         this.logger.log("Got image!", data);
 
@@ -59,12 +70,6 @@ export class ImageGenerator {
 
         for (let i = 0; i < data.length; i++) {
             const imageData = data[i];
-            const url = imageData?.url;
-            if (url) {
-                imageUrls[i] = url;
-                continue;
-            }
-
             const base64 = imageData?.b64_json;
             if (!base64) {
                 throw new Error("Image data is missing");
