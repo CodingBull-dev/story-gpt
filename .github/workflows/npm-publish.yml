@@ -15,6 +15,7 @@ jobs:
   publish:
     name: Build & Publish to NPM
     runs-on: ubuntu-latest
+    environment: npm
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,5 +26,3 @@ jobs:
       - name: Set version
         run: npm version --no-git-tag-version ${{github.event.release.tag_name}}
       - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
