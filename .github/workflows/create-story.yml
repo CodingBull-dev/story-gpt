@@ -1,0 +1,53 @@
+name: Create Story Test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  create-story-test:
+    runs-on: ubuntu-latest
+    name: Create Story Test
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        id: npm-cache
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Run create story test
+        env:
+          OPENAI_TOKEN: ${{ secrets.OPENAI_TOKEN }}
+        run: node create-story-test.mjs
+
+  conclude:
+    runs-on: ubuntu-latest
+    name: Create Story Test Complete
+    needs: [create-story-test]
+    permissions: {}
+    steps:
+      - run: echo '### Create story test passed! 🎉' >> $GITHUB_STEP_SUMMARY
