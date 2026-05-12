@@ -48,7 +48,7 @@ export class ImageGenerator {
         });
 
         const { data } = response;
-        const mimeType = "image/png";
+        const mimeType = `image/${outputFormat}`;
 
         this.logger.log("Got image!", data);
 
